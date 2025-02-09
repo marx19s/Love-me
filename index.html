@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Quiz for My Love</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #ffe6f2;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .yes-btn {
+            background-color: #ff66b2;
+            color: white;
+        }
+        .no-btn {
+            background-color: #ccc;
+            position: absolute;
+        }
+        .hidden {
+            display: none;
+        }
+        #love-animation {
+            font-size: 50px;
+            color: red;
+            animation: heartBeat 1s infinite alternate;
+        }
+        @keyframes heartBeat {
+            from { transform: scale(1); }
+            to { transform: scale(1.3); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="page1">
+        <h2>Welcome My Love ❤️</h2>
+        <label>Enter Your Name: <input type="text" id="name"></label><br><br>
+        <label>Enter Your Age: <input type="number" id="age"></label><br><br>
+        <h3>Do you want chocolate? 🍫</h3>
+        <button class="yes-btn" onclick="nextPage(2)">Yes</button>
+        <button class="no-btn" onclick="askAgain()">No</button>
+    </div>
+
+    <div class="container hidden" id="page2">
+        <h3>Will you share food with me? 🍔🥰</h3>
+        <button class="yes-btn" onclick="nextPage(3)">Yes</button>
+        <button class="no-btn" onclick="askThreeTimes(3)">No</button>
+        <p id="sad-message" class="hidden">😢 That makes me sad...</p>
+    </div>
+
+    <div class="container hidden" id="page3">
+        <h3>Will you be with me forever? 💕</h3>
+        <button class="yes-btn" onclick="nextPage(4)">Yes</button>
+        <button class="no-btn" onclick="askAgain()">No</button>
+    </div>
+
+    <div class="container hidden" id="page4">
+        <h3>Do you want me in your life? 💖</h3>
+        <button class="yes-btn" onclick="showLove()">Yes</button>
+        <button class="no-btn" onclick="askThreeTimes(4)">No</button>
+    </div>
+
+    <div class="container hidden" id="finalPage">
+        <h2>Yay! You Chose Me! 🎉💖</h2>
+        <div id="love-animation">❤️ 🎈 🎈 ❤️</div>
+        <h3>5 Reasons Why You Will Be Happy With Me:</h3>
+        <ul>
+            <li>🌹 I will always love and cherish you.</li>
+            <li>🍕 We will have endless food adventures.</li>
+            <li>💌 I will always support and stand by you.</li>
+            <li>🎶 We will have the best memories together.</li>
+            <li>💍 I will make you the happiest person in the world.</li>
+        </ul>
+    </div>
+
+    <script>
+        let attempts = 0;
+        
+        function nextPage(page) {
+            document.getElementById("page" + (page - 1)).classList.add("hidden");
+            document.getElementById("page" + page).classList.remove("hidden");
+        }
+
+        function askAgain() {
+            alert("No? Think again! Try saying YES! 😘");
+        }
+
+        function askThreeTimes(page) {
+            attempts++;
+            if (attempts >= 3) {
+                document.getElementById("sad-message").classList.remove("hidden");
+                alert("😢 Okay... but you can try again.");
+                attempts = 0;
+            } else {
+                alert(`No? You have ${3 - attempts} chances left!`);
+                moveNoButton();
+            }
+        }
+
+        function moveNoButton() {
+            let button = document.querySelector(".no-btn");
+            let x = Math.random() * (window.innerWidth - 100);
+            let y = Math.random() * (window.innerHeight - 100);
+            button.style.left = x + "px";
+            button.style.top = y + "px";
+        }
+
+        function showLove() {
+            document.getElementById("page4").classList.add("hidden");
+            document.getElementById("finalPage").classList.remove("hidden");
+        }
+    </script>
+
+</body>
+</html>
